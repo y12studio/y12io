@@ -1,0 +1,9 @@
+{
+  "y12pusher": {
+    "image": "php",
+    "path": ".",
+    "build": "",
+    "test": "",
+    "start": ""
+  }
+}
