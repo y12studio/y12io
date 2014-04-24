@@ -39,7 +39,7 @@ $ node .
 ```
 $ git clone https://github.com/y12studio/y12io
 $ cd y12io/projects/loopback-hello/
-$ sudo docker.io build -t="text/lbho" .
+$ sudo docker.io build -t="test/lbho" .
 $ sudo docker.io run -d -p 80:3000 test/lbho
 $ curl http://localhost/
 ```
