@@ -1,0 +1,18 @@
+#
+# Lookback Dockerfile
+#
+# http://docs.strongloop.com/display/DOC/Getting+started
+#
+
+# Pull base image.
+FROM dockerfile/nodejs
+
+# Install 
+RUN npm install -g strong-cli
+RUN slc example && cd sls-sample-app
+
+# browser at http://localhost:3000
+# the generated API at  http://localhost:3000/explorer
+
+# Define default command.
+CMD ["slc","run"]
