@@ -1,8 +1,8 @@
 #
-# Lookback Dockerfile
+# Loopback Dockerfile
 #
 # http://docs.strongloop.com/display/DOC/Getting+started
-# sudo docker.io build -t="test/lbex" - < lookack-example.df
+# sudo docker.io build -t="test/lbex" - < loopack-example.df
 # sudo docker.io run -d -p 3000:3000 test/lbex
 # browser at http://localhost:3000
 # the generated API at  http://localhost:3000/explorer
