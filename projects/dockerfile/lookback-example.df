@@ -8,6 +8,7 @@
 # the generated API at  http://localhost:3000/explorer
 # 
 # Pull base image.
+# https://github.com/dockerfile/nodejs/blob/master/Dockerfile
 FROM dockerfile/nodejs
 
 # Install 
