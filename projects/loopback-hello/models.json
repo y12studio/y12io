@@ -91,11 +91,14 @@
     "public": true
   },
   "person": {
-    "properties": {
-      "Property": {
+     "properties": {
+      "first": {
         "type": "string"
       },
-      "Names:": {
+      "last": {
+        "type": "string"
+      },
+      "title": {
         "type": "string"
       }
     },
