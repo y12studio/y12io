@@ -90,6 +90,23 @@
     "dataSource": "db",
     "public": true
   },
+  "Inventory": {
+     "properties": {
+      "id": {
+        "type": "string"
+      },
+      "productId": {
+        "type": "string"
+      },
+      "available": {
+        "type": "number"
+      }
+    },
+    "public": true,
+    "dataSource": "db",
+    "plural": "inventory"
+  }
+,
   "person": {
      "properties": {
       "first": {
