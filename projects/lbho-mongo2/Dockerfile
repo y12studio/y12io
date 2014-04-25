@@ -5,26 +5,10 @@
 # https://github.com/dockerfile/nodejs/blob/master/Dockerfile
 FROM dockerfile/nodejs
 
-# http://docs.docker.io/examples/mongodb/
-# Add 10gen official apt source to the sources list
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
-RUN echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | tee /etc/apt/sources.list.d/10gen.list
-
-# Hack for initctl not being available in Ubuntu
-RUN dpkg-divert --local --rename --add /sbin/initctl; rm /sbin/initctl; ln -s /bin/true /sbin/initctl
-
-# Install MongoDB
-RUN apt-get update
-RUN apt-get install -y mongodb-10gen
-
-# Create the MongoDB data directory
-RUN mkdir -p /data/mongodb
-
 # install app
 ENV PREFIX /app
 WORKDIR /app
 # Install mongodb
-ADD mongodb.conf /etc/mongodb.conf
 ADD start.sh /start.sh
 RUN chmod 755 /start.sh
 ADD . $PREFIX
@@ -32,4 +16,4 @@ RUN npm install
 
 EXPOSE 3000
 # Define default command.
-CMD ["/start.sh"]
+CMD /start.sh $MONGO_PORT_27017_TCP_ADDR $MONGO_PORT_27017_TCP_PORT
