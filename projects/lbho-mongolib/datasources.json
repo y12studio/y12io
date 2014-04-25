@@ -1,0 +1,23 @@
+{
+  "db_mem": {
+    "defaultForType": "db",
+    "connector": "memory"
+  },
+  "db": { 
+    "defaultForType": "mongodb",
+   "connector": "loopback-connector-mongodb",
+    "url" : "MY_MONGOLIB_URL",
+    "debug": true 
+  },
+  "push": {
+    "defaultForType": "push",
+    "connector": "loopback-push-notification",
+    "installation": "installation",
+    "notification": "notification",
+    "application": "application"
+  },
+  "mail": {
+    "defaultForType": "mail",
+    "connector": "mail"
+  }
+}
