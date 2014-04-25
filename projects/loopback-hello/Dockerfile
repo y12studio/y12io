@@ -1,6 +1,6 @@
 #
 # Loopback Hello Dockerfile
-# git clone
+# git clone giturl
 # sudo docker.io build -t="test/lbho" .
 # sudo docker.io run -d -p 80:3000 test/lbho
 # browser at http://localhost
