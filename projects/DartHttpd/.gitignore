@@ -1,4 +1,4 @@
 !/bin
-/packages
+packages/
 /pubspec.lock
 /build
