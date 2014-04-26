@@ -7,7 +7,9 @@ import 'dart:io';
 import 'server_utils.dart';
 
 void main() {
-  HttpServer.bind(InternetAddress.LOOPBACK_IP_V4, 8080).then((server) {
+  // print(InternetAddress.ANY_IP_V4);
+  // print(InternetAddress.LOOPBACK_IP_V4);
+  HttpServer.bind(InternetAddress.ANY_IP_V4, 8080).then((server) {
     initRouterVirDir(server,'darthttpd.html');
   });
 }
