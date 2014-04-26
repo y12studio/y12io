@@ -1,17 +1,13 @@
+// Copyright (c) 2014, y12studio.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// Apache license.
 library simple_http_server;
 
 import 'dart:io';
-import 'package:http_server/http_server.dart' show VirtualDirectory;
+import 'server_utils.dart';
 
 void main() {
-  final MY_HTTP_ROOT_PATH = Platform.script.resolve('../build/web').toFilePath();
-  print(MY_HTTP_ROOT_PATH);
-  final virDir = new VirtualDirectory(MY_HTTP_ROOT_PATH)
-    ..allowDirectoryListing = true;
-
   HttpServer.bind(InternetAddress.LOOPBACK_IP_V4, 8080).then((server) {
-    server.listen((request) {
-      virDir.serveRequest(request);
-    });
+    initRouterVirDir(server,'darthttpd.html');
   });
 }
