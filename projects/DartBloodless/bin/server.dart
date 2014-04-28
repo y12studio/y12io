@@ -3,8 +3,6 @@
 // Apache license.
 import 'package:bloodless/server.dart' as app;
 import 'dart:io';
-import 'packages/crypto/crypto.dart';
-import 'packages/utf/utf.dart';
 import 'packages/logging/logging.dart';
 
 final Logger _logger = new Logger("dartbloodless_server");
@@ -31,33 +29,34 @@ handleResponseHeader() {
 @app.Route("/adminbasic")
 adminbasic() => "Hello, World admin basic!";
 
+
 @app.Interceptor('/adminbasic')
 adminBasicAuthFilter() {
-  
   String user="user";
-  String pass="pass";
-  
-  bool r = false;
-  if (app.request.headers[HttpHeaders.AUTHORIZATION] != null) {
-    String authorization = app.request.headers[HttpHeaders.AUTHORIZATION][0];
-    List<String> tokens = authorization.split(" ");
-    String auth = CryptoUtils.bytesToBase64(encodeUtf8("$user:$pass"));
-    if ("Basic" == tokens[0] && auth == tokens[1]) {
-      r = true;
-    }
-  }
-  
-  if (r) {
+  String pass="pass";  
+  if(app.authenticateBasic(user, pass,realm:"Haha",abortOnFail: true)){
     app.chain.next();
-  } else {
-    app.request.response.headers.set(HttpHeaders.WWW_AUTHENTICATE, "Basic realm=\"DartBloodless\"");
-    app.chain.interrupt(statusCode: HttpStatus.UNAUTHORIZED);
-    //or app.redirect("/login.html");
   }
 }
 
-@app.Route("/user/:username")
+
+
+@app.Route("/userx/:username")
 helloUser(String username) => "hello $username";
+
+@app.Group("/user")
+class UserService {
+  @app.Route("/find")
+  x(@app.QueryParam("n") String name,
+           @app.QueryParam("c") String city) {
+    return 'hello user $name';
+  }
+
+  @app.Route("/add", methods: const [app.POST])
+  y(@app.Body(app.JSON) Map json) {
+    return 'add json';
+  }
+}
 
 main() {
   app.setupConsoleLog();
