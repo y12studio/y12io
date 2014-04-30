@@ -1,0 +1,31 @@
+#
+# Dockerfile dart 
+#
+# sudo docker.io build -t="test/dartdev" .
+# sudo docker.io run -i -t test/dartdev dart --version
+#
+FROM ubuntu:14.04
+
+# Update OS.
+RUN sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list
+RUN apt-get update
+RUN apt-get -y upgrade
+
+# Install basic packages.
+RUN apt-get install -y software-properties-common
+RUN apt-get install -y curl git htop unzip vim wget
+
+# Set environment variables.
+ENV HOME /root
+
+RUN wget http://storage.googleapis.com/dart-archive/channels/stable/release/latest/editor/darteditor-linux-x64.zip
+RUN unzip -q darteditor-linux-x64.zip -d /root
+
+ENV DART_SDK /root/dart/dart-sdk/bin
+# Append to $PATH variable.
+# RUN echo '\n# dart \nexport PATH="/root/dart/dart-sdk/bin:$PATH"' >> ~/.profile
+
+# Add files.
+# ADD root/scripts /root/scripts
+ENV PATH $DART_SDK:$PATH
+CMD ["dart"]
