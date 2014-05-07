@@ -1,6 +1,8 @@
 module.exports = function (grunt) {
 
-	Etcd = require('node-etcd');
+	var etcdjs = require('etcdjs');
+	var store = etcdjs('127.0.0.1:4001');
+	var randomstring = require("randomstring");
 
 	// Project configuration.
 	grunt.initConfig({
@@ -22,7 +24,8 @@ module.exports = function (grunt) {
 				options : {
 					url : 'http://127.0.0.1:4001/v2/stats/self',
 					callback : function (err, response, body) {
-						grunt.log.write(body);
+						//grunt.log.write(body);
+						console.log(body);
 					}
 				}
 			}
@@ -100,32 +103,37 @@ module.exports = function (grunt) {
 		grunt.task.run('default', 'exec:dk_build:' + img);
 	});
 
-	grunt.registerTask('etcd-test', 'test etcd', function () {
-		etcd = new Etcd('127.0.0.1', '4001');
-		etcd.set("key", "value");
+	grunt.registerTask('etcd-test-set', 'etcd test set', function () {
+		var done = this.async();
+		var ran = randomstring.generate(8);
+
+		store.set('hello', 'Y12'+ran, function (err, result) {
+			store.get('hello', function (err, result) {
+				console.log('hello:', result.node.value);
+				done(true);
+			});
+		});
 	});
 
 	grunt.registerTask('xdk-build-ssl', 'build docker ssl image', function (img) {
 		grunt.task.run('df-ssl', 'exec:dk_build:' + img);
 	});
 
-	grunt.registerTask('etcd-stats', 'curl /stats/self', function (img) {
+	grunt.registerTask('xdk-brun-basic', 'stop, build and run basic docker image', function (img) {
+		grunt.task.run('dk-stop-all', 'dk-build-basic:' + img, 'dk-run-basic:' + img);
+	});
+
+	grunt.registerTask('etcd-stats', 'etcd /stats/self', function () {
 		grunt.task.run('http:etcd_stats');
 	});
 
-	grunt.registerTask('dk-run-etcd', 'run etcd docker image', function (img) {
-		grunt.task.run('exec:dk_run_etcd', 'dk-psip');
-	});
-
-	grunt.registerTask('xdk-brun-basic', 'stop, build and run basic docker image', function (img) {
-		grunt.task.run('dk-stop-all', 'dk-build-basic:' + img, 'dk-run-basic:' + img);
+	grunt.registerTask('dk-run-etcd', 'run etcd docker image', function () {
+		grunt.task.run('exec:dk_run_etcd', 'dk-psip', 'etcd-stats', 'etcd-test-set');
 	});
 
 	grunt.registerTask('dk-stop-all', 'Stop all docker container', ['exec:dk_stop_all']);
 	grunt.registerTask('dk-psip', 'docker ps and ip', ['exec:dk_ps', 'exec:dk_ip']);
 	grunt.registerTask('dk-clean', ['exec:dk_rm', 'exec:dk_rmi']);
-	grunt.registerTask('df-ssl', 'build Dockerfile for ssl.', ['clean', 'concat:ssl']);
-	grunt.registerTask('df-jsonapi', 'build Dockerfile for wordpress json-api.', ['clean', 'concat:jsonapi']);
 	grunt.registerTask('df-basic', 'build basic Dockerfile', ['clean', 'concat:basic']);
 	// Default task(s).
 	grunt.registerTask('default', ['exec:grunt_help']);
