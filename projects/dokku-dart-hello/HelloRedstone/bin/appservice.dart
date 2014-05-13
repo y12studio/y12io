@@ -9,5 +9,6 @@ helloWorld() => "Hello, World!" + new DateTime.now().toIso8601String();
 main() {
   app.setupConsoleLog();
   //app.start();
-  app.start(port: 8080, staticDir: "../build/web", indexFiles: ["helloredstone.html"]);
+  // dokku default port is 5000
+  app.start(port: 5000, staticDir: "../build/web", indexFiles: ["helloredstone.html"]);
 }

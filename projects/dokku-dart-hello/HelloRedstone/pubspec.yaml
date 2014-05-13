@@ -3,3 +3,7 @@ description: A sample web application
 dependencies:
   browser: any
   redstone: any
+transformers:
+  - $dart2js:
+      analyzeAll: true
+	  minify: true
