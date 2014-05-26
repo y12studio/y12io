@@ -8,7 +8,6 @@ MAINTAINER  Y12STUDIO "y12studio@gmail.com"
 RUN sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list
 RUN apt-get update && apt-get -y upgrade
 
-VOLUME ["/data"]
 # Ensure UTF-8
 RUN locale-gen en_US.UTF-8
 ENV LANG       en_US.UTF-8
@@ -21,9 +20,6 @@ RUN apt-get install -y software-properties-common curl git unzip nano wget
 RUN echo "deb http://ftp.osuosl.org/pub/mariadb/repo/5.5/ubuntu trusty main" > /etc/apt/sources.list.d/mariadb.list && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes mariadb-server mariadb-server-5.5
-
-# Configure the database to use our data dir.
-RUN sed -i -e 's/^datadir\s*=.*/datadir = \/data/' /etc/mysql/my.cnf
 
 # Configure MariaDB to listen on any address.
 RUN sed -i -e 's/^bind-address/#bind-address/' /etc/mysql/my.cnf
@@ -48,8 +44,6 @@ RUN cd /etc/lighttpd/conf-available/ && cp 15-fastcgi-php.conf 15-fastcgi-php.co
 ADD fastcgi-php.conf /etc/lighttpd/conf-available/15-fastcgi-php.conf
 RUN lighttpd-enable-mod fastcgi && lighttpd-enable-mod fastcgi-php
 
-ADD start.sh /start.sh
-RUN chmod 755 /start.sh
 RUN echo '<?php phpinfo(); ?>' > /var/www/info.php
 
 RUN chown -R www-data:www-data /var/www
@@ -69,9 +63,14 @@ RUN useradd -m -s /bin/bash docker &&\
 # http://stackoverflow.com/questions/18173889/cannot-access-centos-sshd-on-docker
 RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config &&\
     sed -ri 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config
-	
-# Clean up APT when done.
-# RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# phpmyadmin
+RUN apt-get install -y dbconfig-common javascript-common libjs-jquery libjs-jquery-ui php-gettext
+
+ADD install_phpmyadmin.sh /install_phpmyadmin.sh
+RUN chmod 755 /install_phpmyadmin.sh
+ADD start.sh /start.sh
+RUN chmod 755 /start.sh
 
 EXPOSE 22
 EXPOSE 80

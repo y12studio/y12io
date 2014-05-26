@@ -1,19 +1,23 @@
 #!/bin/bash
 if [ ! -f /data/mysql ]; then
     echo "=> initializing mysql tables"
-	chown -R mysql:mysql /data/
     mysql_install_db > /dev/null 2>&1
-	#mysql has to be started this way as it doesn't work to call from /etc/init.d
     /usr/bin/mysqld_safe &
-    sleep 9s
+    sleep 12s
 	MYSQL_PASSWORD=mysql1234
 	APPDB_PASSWORD=appdb1234
 	mysqladmin -u root password $MYSQL_PASSWORD 
     mysql -uroot -p$MYSQL_PASSWORD -e "CREATE DATABASE appdb; GRANT ALL PRIVILEGES ON appdb.* TO 'appdb'@'localhost' IDENTIFIED BY '$APPDB_PASSWORD'; FLUSH PRIVILEGES;"
+	/install_phpmyadmin.sh > /dev/null 2>&1
+	ln -s /usr/share/phpmyadmin/ /var/www
     killall mysqld
     sleep 9s
 fi
+echo "Start mariadb"
 /usr/bin/mysqld_safe &
+echo "Start php5-fpm"
 service php5-fpm start
-service ssh start
-lighttpd -D -f /etc/lighttpd/lighttpd.conf
+echo "Start lighttpd"
+service lighttpd start
+echo "Start ssh server"
+/usr/sbin/sshd -D
