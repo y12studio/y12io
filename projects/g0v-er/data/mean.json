@@ -1,0 +1,130 @@
+[{
+		"name" : "ER.1145010010",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 34.257142857142824]]
+	}, {
+		"name" : "ER.1131100010",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 18]]
+	}, {
+		"name" : "ER.0439010518",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 20.871428571428545]]
+	}, {
+		"name" : "ER.1132070011",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 101.82857142857144]]
+	}, {
+		"name" : "ER.1331040513",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 6.3174603174603154]]
+	}, {
+		"name" : "ER.1317050017",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 21.45714285714285]]
+	}, {
+		"name" : "ER.1536030075",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 0.2857142857142857]]
+	}, {
+		"name" : "ER.1137010024",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 22.9]]
+	}, {
+		"name" : "ER.0617060018",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 38.814285714285745]]
+	}, {
+		"name" : "ER.1142100017",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 114.8285714285714]]
+	}, {
+		"name" : "ER.0936060016",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 0.4428571428571428]]
+	}, {
+		"name" : "ER.1101150011",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 22.842857142857152]]
+	}, {
+		"name" : "ER.1141310019",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 8.231884057971016]]
+	}, {
+		"name" : "ER.1111060015",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 25.577777777777786]]
+	}, {
+		"name" : "ER.1434020015",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 5.8428571428571425]]
+	}, {
+		"name" : "ER.0601160016",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 0.05714285714285713]]
+	}, {
+		"name" : "ER.1131050515",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 1.7999999999999987]]
+	}, {
+		"name" : "ER.1140010510",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 2.9285714285714293]]
+	}, {
+		"name" : "ER.1301200010",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 2.6470588235294095]]
+	}, {
+		"name" : "ER.1101020018",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 6.9]]
+	}, {
+		"name" : "ER.1302050014",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 50.242857142857126]]
+	}, {
+		"name" : "ER.0421040011",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 25.45714285714284]]
+	}, {
+		"name" : "ER.1131010011",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 53.314285714285724]]
+	}, {
+		"name" : "ER.0937010019",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 4.985714285714286]]
+	}, {
+		"name" : "ER.1317040011",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 10.142857142857142]]
+	}, {
+		"name" : "ER.1101100011",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 20.114285714285714]]
+	}, {
+		"name" : "ER.0943030019",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 1.457142857142857]]
+	}, {
+		"name" : "ER.0401180014",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 60.13207547169811]]
+	}, {
+		"name" : "ER.0936050029",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 1.2714285714285705]]
+	}, {
+		"name" : "ER.0602030026",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 23.522388059701495]]
+	}, {
+		"name" : "ER.1142120001",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 14]]
+	}, {
+		"name" : "ER.0501110514",
+		"columns" : ["time", "mean"],
+		"points" : [[0, 8.942857142857145]]
+	}
+]
