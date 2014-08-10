@@ -11,7 +11,6 @@ import '../packages/csv_utils/csv_utils.dart';
 import 'dart:convert';
 
 void main() {
-  print("Hello, World!");
   String url = "https://gist.githubusercontent.com/mcdlee/a3a7d55767e6f26fec44/raw/gistfile1.txt";
   http.read(url).then((body) {
     List rlist = new CsvConverter.Excel().parse(body).where((line) => line.length > 5 && line[0].length > 0).map((line) {
