@@ -1,0 +1,13 @@
+<link rel="import" href="packages/polymer/polymer.html">
+<polymer-element name="user-gravatar" attributes="email">
+  <template>
+    <img src="https://secure.gravatar.com/avatar/{{gid}}" />
+  </template>
+  <script>
+    Polymer('user-gravatar', {
+      ready: function() {
+        this.gid = 'hello';
+      }
+    });
+  </script>
+</polymer-element>
