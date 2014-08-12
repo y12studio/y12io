@@ -1,8 +1,4 @@
 {
-    
-     "name": "Hospital Id and Geo Data",
-     "description": "raw data from er.mohw project at http://er.mohw.g0v.tw/ ",
-    
      "type": "FeatureCollection",
      "features": [
           {
