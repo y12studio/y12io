@@ -1,0 +1,16 @@
+﻿<!-- Import Polymer -->
+<link rel="import" href="https://cdn.rawgit.com/Polymer/polymer/master/polymer.html">
+
+<!-- Define your custom element -->
+<polymer-element name="helloworld" attributes="who">
+
+    <template>
+        <span>Hello <strong>{{who}}</strong> :)</span>
+    </template>
+
+    <script>
+        Polymer('helloworld', {
+            who: 'Y12'
+        });
+    </script>
+</polymer-element>
