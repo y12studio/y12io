@@ -1,4 +1,4 @@
-﻿Polymer cross domain test 
+﻿Polymer cross domain test (Not Work)
 
 jsbin cross domain 
 ```
@@ -20,4 +20,36 @@ jsbin cross domain
 <h1>Polymer Test</h1>
 <p>From github(Not OK) : <hello-world who="Y12 Studio"></hello-world></p>
 <p>Local(OK) : <hello-world2 who="Y12 Studio"></hello-world2></p>
+```
+
+with core header panel
+
+```
+<script src="http://www.polymer-project.org/platform.js"></script>
+<link rel="import" href="http://www.polymer-project.org/components/polymer/polymer.html">
+<link rel="import" href="http://www.polymer-project.org/components/core-header-panel/core-header-panel.html">
+<polymer-element name="hello-world2" attributes="who">
+    <template>
+        <span>Hello <strong>{{who}}</strong> :)</span>
+    </template>
+    <script>
+     Polymer('hello-world2', {
+       attached: function() {
+         console.log('attached');
+       }
+     })
+  </script>
+</polymer-element>
+<body fullbleed flex layout vertical>
+  <core-header-panel flex style="background-color: red;">
+    <div class="core-header">HEADER</div>
+    <div fit layout vertical>
+      <div  flex style="background-color: yellow;">
+        <h1>Polymer Cross Domain Test</h1>
+           <p>Local(OK) : <hello-world2 who="Y12 Studio"></hello-world2></p>
+      </div>
+      <div>FOOTER</div>
+    </div> 
+  </core-header-panel>
+</body>
 ```
