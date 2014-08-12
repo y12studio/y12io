@@ -9,6 +9,21 @@
 <link rel="import" href="http://www.polymer-project.org/components/core-toolbar/core-toolbar.html">
 <link rel="import" href="http://www.polymer-project.org/components/core-menu/core-submenu.html">
 <link rel="import" href="http://www.polymer-project.org/components/core-ajax/core-ajax.html">
+<polymer-element name="hello-hp">
+    <template>
+      <core-ajax auto url="https://raw.githubusercontent.com/y12studio/y12io/master/projects/g0v-er/data/hp.geojson" handleAs="json" response="{{nodes}}"></core-ajax>
+       <template repeat="{{feature in root.features}}">
+         <p>ID: {{feature.id}}</p>
+      </template>
+    </template>
+    <script>
+     Polymer('hello-hp', {
+       attached: function() {
+         console.log('hello-hp attached');
+       }
+     })
+  </script>
+</polymer-element>
 <polymer-element name="hello-er" attributes="what">
     <template>
       <core-ajax auto  url="http://api-beta.ly.g0v.tw:8086/db/twer/series?p=guest&q=select+mean(pending_ward),stddev(pending_ward)+from+%2FER.%2B%2F+where+time+%3E+now()+-+24h+order+asc&time_precision=s&u=guest" handleAs="json" response="{{nodes}}"></core-ajax>
@@ -67,7 +82,7 @@
         </core-menu>
       </core-header-panel>
       <div id="div" tool><a href="http://er.mohw.g0v.tw/" target="_blank">全國重度級急救責任醫院急診24h統計</a></div>
-         <hello-er what="Y12 Test"></hello-er>
+         <hello-hp></hello-hp>
     </core-scaffold>
   </template>
 
