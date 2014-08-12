@@ -1,0 +1,21 @@
+﻿jsbin cross domain 
+```
+<script src="http://www.polymer-project.org/platform.js"></script>
+<script src="http://www.polymer-project.org/polymer.js"></script>
+<link ref="import" href="https://rawgit.com/y12studio/y12io/master/projects/g0v-er/polymer/hello-world.html">
+<polymer-element name="hello-world2" attributes="who">
+    <template>
+        <span>Hello <strong>{{who}}</strong> :)</span>
+    </template>
+    <script>
+     Polymer('hello-world2', {
+       attached: function() {
+         console.log('attached');
+       }
+     })
+  </script>
+</polymer-element>
+<h1>Polymer Test</h1>
+<p>From github(Not OK) : <hello-world who="Y12 Studio"></hello-world></p>
+<p>Local(OK) : <hello-world2 who="Y12 Studio"></hello-world2></p>
+```
