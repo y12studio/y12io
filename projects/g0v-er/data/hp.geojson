@@ -1,21 +1,8 @@
 {
-     "@id": "https://y12.tw/y12io/g0v-er/data/hp",
+    
      "name": "Hospital Id and Geo Data",
      "description": "raw data from er.mohw project at http://er.mohw.g0v.tw/ ",
-     "@context": {
-          "name": "http://purl.org/dc/terms/title",
-          "description": "http://purl.org/dc/terms/description",
-          "Point": {
-               "@id": "http://geovocab.org/geometry#Point"
-          },
-          "coordinates": {
-               "@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#value",
-               "@container": "@list"
-          },
-          "geometry": {
-               "@id": "http://geovocab.org/geometry#geometry"
-          }
-     },
+    
      "type": "FeatureCollection",
      "features": [
           {
