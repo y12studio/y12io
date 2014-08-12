@@ -16,6 +16,7 @@
                "@id": "http://geovocab.org/geometry#geometry"
           }
      },
+     "type": "FeatureCollection",
      "features": [
           {
                "type": "Feature",
