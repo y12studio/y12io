@@ -16,6 +16,7 @@
 			 "@id" : "http://geovocab.org/geometry#geometry"
 		}
 	},
+	"features":[],
 	"hospitals":{
 	"1434020015" : {
 		"name" : "財團法人羅許基金會羅東博愛醫院",
