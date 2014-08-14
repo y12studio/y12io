@@ -20,5 +20,10 @@ RUN cd /opt && git clone https://github.com/Polymer/topeka && \
 ADD run.sh /etc/service/topeka/run
 RUN chmod +x /etc/service/topeka/run
 
+ADD categories.json /opt/topeka/components/topeka-elements/categories.json
+
+RUN npm install -g vulcanize
+RUN cd /opt/topeka/ && vulcanize index.html
+
 CMD ["/sbin/my_init"]
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
