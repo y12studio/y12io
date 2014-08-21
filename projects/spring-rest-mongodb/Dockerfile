@@ -30,6 +30,13 @@ RUN cd /opt && git clone https://github.com/spring-guides/gs-accessing-mongodb-d
 ADD sprest.sh /etc/service/sprest/run
 RUN chmod +x /etc/service/sprest/run
 
+ENV APP_HOME /opt/gs-accessing-mongodb-data-rest/complete/
+
+# inject new domain 
+ADD src/Person.java $APP_HOME/src/main/java/hello/
+ADD src/PersonRepository.java $APP_HOME/src/main/java/hello/
+RUN cd $APP_HOME && ./gradlew clean build
+
 EXPOSE 8080
 CMD ["/sbin/my_init"]
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

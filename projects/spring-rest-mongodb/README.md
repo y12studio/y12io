@@ -1,4 +1,14 @@
-## install
+## fig run
+
+```
+nano src/Person.java
+nano src/PersonRepository.java
+sudo fig build
+sudo fig up
+curl http://localhost:8080/
+```
+
+## manual run
 
 ```
 git clone
