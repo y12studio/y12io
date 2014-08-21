@@ -9,13 +9,15 @@ RUN locale-gen zh_TW.UTF-8
 # Use the phusion baseimage's insecure key
 RUN /usr/sbin/enable_insecure_key
 
-RUN apt-get update -y 
 RUN apt-get upgrade -y
+RUN apt-get update -y 
 # Install JDK and Gradle
-RUN apt-get install -y openjdk-7-jdk gradle curl wget python git unzip
+RUN apt-get install -y openjdk-7-jdk curl wget python git unzip
+
+RUN add-apt-repository ppa:cwchien/gradle && apt-get update -y && apt-get install -y gradle
 
 # Set Appropriate Environmental Variables
-ENV JAVA_HOME /usr/lib/jvm/default-java
+ENV JAVA_HOME  /usr/lib/jvm/java-7-openjdk-amd64/
 ENV GROOVY_HOME /usr/bin/groovy
 ENV GRADLE_HOME /usr/bin/gradle
 # NOTE : make sure old path first.
