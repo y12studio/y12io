@@ -23,8 +23,10 @@ ENV GRADLE_HOME /usr/bin/gradle
 ENV PATH $PATH:$JAVA_HOME/bin:$GROOVY_HOME/bin:$GRADLE_HOME/bin
 
 # install spring 
-RUN cd /opt && git clone https://github.com/spring-guides/gs-accessing-mongodb-data-rest.git &&\
-    cd gs-accessing-mongodb-data-rest/complete && ./gradlew build
+RUN cd /opt && git clone https://github.com/spring-guides/gs-accessing-mongodb-data-rest.git
+
+# install protoc
+# RUN apt-get install -y protobuf-compiler
 
 #spring rest
 ADD sprest.sh /etc/service/sprest/run
@@ -35,6 +37,7 @@ ENV APP_HOME /opt/gs-accessing-mongodb-data-rest/complete/
 # inject new domain 
 ADD src/Person.java $APP_HOME/src/main/java/hello/
 ADD src/PersonRepository.java $APP_HOME/src/main/java/hello/
+ADD build.gradle $APP_HOME/
 RUN cd $APP_HOME && ./gradlew clean build
 
 EXPOSE 8080
