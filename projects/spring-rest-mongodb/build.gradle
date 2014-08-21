@@ -10,12 +10,10 @@ buildscript {
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
 apply plugin: 'spring-boot'
 
 jar {
-    baseName = 'gs-accessing-mongodb-data-rest'
+    baseName = 'sprest'
     version =  '0.1.0'
 }
 
@@ -31,8 +29,4 @@ dependencies {
     compile("org.springframework.data:spring-data-mongodb")
     compile("org.springframework.data:spring-data-rest-webmvc")
     testCompile("junit:junit")
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '1.11'
 }
