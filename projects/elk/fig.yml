@@ -1,9 +1,18 @@
+static:
+  build: static
+  volumes:
+    - /opt/static
+
 web:
   build: nginx
   ports:
     - "8080:8080"
+  volumes_from:
+    - static
 
 logstash:
   build: logstash
+  volumes_from:
+    - static
   ports:
-    - "9292:9292"
+    - "8050:8050"
