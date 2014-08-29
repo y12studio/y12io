@@ -1,4 +1,4 @@
-FROM phusion/baseimage:0.9.12
+FROM phusion/baseimage:0.9.13
 MAINTAINER Y12STUDIO <y12studio@gmail.com>
 
 ENV HOME /root

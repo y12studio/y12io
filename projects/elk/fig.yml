@@ -9,10 +9,15 @@ web:
     - "8080:8080"
   volumes_from:
     - static
+  links:
+    - elkx
 
-logstash:
-  build: logstash
+elkx:
+  build: elk
   volumes_from:
     - static
   ports:
-    - "8050:8050"
+    - "8180:8080"
+  expose:
+    - "8050"
+    - "8080"

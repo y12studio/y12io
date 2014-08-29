@@ -1,4 +1,4 @@
-FROM phusion/baseimage:0.9.12
+FROM phusion/baseimage:0.9.13
 MAINTAINER Y12STUDIO <y12studio@gmail.com>
 
 ENV HOME /root
@@ -19,5 +19,6 @@ RUN mkdir -p /opt/static/pki/tls/certs && mkdir /opt/static/pki/tls/private
 # or move to /etc/my_init.d/static.sh
 RUN cd /opt/static/pki/tls && openssl req -x509 -batch -nodes -days 3650 -newkey rsa:2048 \
    -keyout private/logstash-forwarder.key -out certs/logstash-forwarder.crt
+
 CMD ["/sbin/my_init"]
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

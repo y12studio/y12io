@@ -1,0 +1,15 @@
+{
+  "network": {
+    "servers": [ "localhost:8050" ],
+    "timeout": 15,
+    "ssl ca": "/opt/static/pki/tls/certs/logstash-forwarder.crt"
+  },
+  "files": [
+    {
+      "paths": [
+        "/var/log/syslog"
+       ],
+      "fields": { "type": "syslog" }
+    }
+   ]
+}

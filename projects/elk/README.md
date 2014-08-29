@@ -2,6 +2,7 @@
 ```
 cd base
 sudo docker build -t=y12studio/elk .
+cd ..
 sudo fig build
 sudo fig up &
 sudo docker ps
@@ -27,4 +28,39 @@ uPc043gmmmaCnSXBeOtKBNPzIRZyvrV5xiMfXDVr6jwS3eLYnJuoTLOjZpUSrbro
 QRQyhjma2m1KTc4PaYBnsFNb6906wfCaizAlKRM6ZR1gDzwPTK4xqol8LihSAhtq
 OA==
 -----END CERTIFICATE-----
+```
+
+fig link env.
+
+```
+fig.yml
+
+elkx:
+  build: elk
+  volumes_from:
+    - static
+  ports:
+    - "8180:8080"
+  expose:
+    - "8050"
+    - "8080"
+
+env
+
+ELK_ELKX_1_PORT_8080_TCP_ADDR=172.17.0.99
+ELK_ELKX_1_PORT_8050_TCP_ADDR=172.17.0.99
+ELK_ELKX_1_ENV_LANG=zh_TW.UTF-8
+ELK_ELKX_1_PORT_8080_TCP=tcp://172.17.0.99:8080
+ELK_ELKX_1_PORT_8050_TCP=tcp://172.17.0.99:8050
+ELK_ELKX_1_PORT_8050_TCP_PORT=8050
+ELK_ELKX_1_NAME=/elk_web_1/elk_elkx_1
+ELKX_1_PORT_8080_TCP_PORT=8080
+ELK_ELKX_1_PORT_8080_TCP_PORT=8080
+ELK_ELKX_1_PORT_8080_TCP_PROTO=tcp
+SSH_CONNECTION=172.17.42.1 38781 172.17.0.101 22
+ELK_ELKX_1_PORT_8050_TCP_PROTO=tcp
+ELKX_1_PORT_8080_TCP_PROTO=tcp
+ELKX_1_PORT_8080_TCP_ADDR=172.17.0.99
+ELK_ELKX_1_PORT=tcp://172.17.0.99:8050
+
 ```
