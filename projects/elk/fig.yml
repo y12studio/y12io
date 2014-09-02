@@ -5,8 +5,9 @@ static:
 
 web:
   build: nginx
+  hostname: web1
   ports:
-    - "8080:8080"
+    - "8080:80"
   volumes_from:
     - static
   links:
@@ -14,10 +15,11 @@ web:
 
 elkx:
   build: elk
+  hostname: elk1
   volumes_from:
     - static
   ports:
-    - "8180:8080"
+    - "9200:9200"
   expose:
     - "8050"
-    - "8080"
+    - "9200"

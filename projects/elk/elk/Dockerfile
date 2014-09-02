@@ -26,6 +26,8 @@ RUN chmod +x /etc/service/logstash/run
 ADD elasticsearch.sh /etc/service/elasticsearch/run
 RUN chmod +x /etc/service/elasticsearch/run
 
+ADD nginx.pattern /opt/logstash/patterns/nginx
+
 ENV JAVA_HOME  /usr/lib/jvm/java-7-openjdk-amd64/
 
 CMD ["/sbin/my_init"]

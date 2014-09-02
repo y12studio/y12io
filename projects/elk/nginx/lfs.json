@@ -10,6 +10,12 @@
         "/var/log/syslog"
        ],
       "fields": { "type": "syslog" }
+    },
+	 {
+      "paths": [
+        "/var/log/nginx/access.log"
+       ],
+      "fields": { "type": "nginx-access" }
     }
    ]
 }

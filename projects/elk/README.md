@@ -1,9 +1,6 @@
 ## ssl crt
 ```
-cd base
-sudo docker build -t=y12studio/elk .
-cd ..
-sudo fig build
+bash build.sh
 sudo fig up &
 sudo docker ps
 sudo docker-ssh elk_web_1 cat /opt/static/pki/tls/certs/logstash-forwarder.crt
