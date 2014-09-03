@@ -17,7 +17,7 @@ ENV LFS /etc/service/lfs/run
 RUN mkdir -p "$(dirname "$LFS")" && echo '#!/bin/bash' > $LFS &&\
     echo 'sed -i "s/localhost/$ELK_ELKX_1_PORT_8050_TCP_ADDR/g" $LFSCONF' >> $LFS &&\
     echo '/opt/logstash-forwarder/bin/logstash-forwarder -config $LFSCONF' >> $LFS &&\
-	chmod +x $LFS
-	
+    chmod +x $LFS
+
 CMD ["/sbin/my_init"]
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
