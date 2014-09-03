@@ -37,6 +37,12 @@ RUN mkdir -p "$(dirname "$ES_RUN")" && echo '#!/bin/bash' > $ES_RUN &&\
 
 ADD nginx.pattern /opt/logstash/patterns/nginx
 
+RUN apt-get install -y openssl
+RUN mkdir -p /opt/static/pki/tls/certs && mkdir /opt/static/pki/tls/private
+# or move to /etc/my_init.d/static.sh
+RUN cd /opt/static/pki/tls && openssl req -x509 -batch -nodes -days 3650 -newkey rsa:2048 \
+   -keyout private/logstash-forwarder.key -out certs/logstash-forwarder.crt
+
 ENV JAVA_HOME  /usr/lib/jvm/java-7-openjdk-amd64/
 
 CMD ["/sbin/my_init"]

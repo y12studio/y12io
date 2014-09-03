@@ -1,15 +1,10 @@
-static:
-  build: static
-  volumes:
-    - /opt/static
-
 web1:
   build: nginx
   hostname: web1
   ports:
     - "8080:80"
   volumes_from:
-    - static
+    - elkx
   links:
     - elkx
 
@@ -19,7 +14,7 @@ web2:
   ports:
     - "8081:80"
   volumes_from:
-    - static
+    - elkx
   links:
     - elkx
 #
@@ -30,8 +25,8 @@ web2:
 elkx:
   build: elk
   hostname: elk1
-  volumes_from:
-    - static
+  volumes:
+    - /opt/static
   ports:
     - "9280:80"
     - "9200:9200"
