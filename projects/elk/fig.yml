@@ -3,7 +3,7 @@ static:
   volumes:
     - /opt/static
 
-web:
+web1:
   build: nginx
   hostname: web1
   ports:
@@ -13,13 +13,29 @@ web:
   links:
     - elkx
 
+web2:
+  build: nginx
+  hostname: web2
+  ports:
+    - "8081:80"
+  volumes_from:
+    - static
+  links:
+    - elkx
+#
+# 8050 : logstash lumberjack port
+# 9200 : elasticsearch http api
+# 80 : kibana http 
+#
 elkx:
   build: elk
   hostname: elk1
   volumes_from:
     - static
   ports:
+    - "9280:80"
     - "9200:9200"
   expose:
     - "8050"
     - "9200"
+    - "80"
