@@ -1,0 +1,32 @@
+# 
+# 9200 : elasticsearch http api
+# 80 : nginx/kibana http 
+# 25826 : collectd udp port
+# 9300 : logstash node port
+#
+elk:
+  image: y12elk/elk:latest
+  hostname: elk
+  ports:
+    - "9280:80"
+    - "9200:9200"
+  expose:
+    - "9200"
+    - "9300"
+    - "80"
+    - "25826"
+#
+# production mode
+# uncomment volumes for run node from local source code
+#
+ob:
+  image: y12elk/xx:latest
+  hostname: php
+  command: /sbin/my_init
+  ports:
+    - "8888:8888"
+    - "12345:12345"
+  links:
+    - elk
+  expose:
+    - "9300"

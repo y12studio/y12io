@@ -1,5 +1,5 @@
 #!/bin/bash
-ELK_IP=$LOGELK_ELK_1_PORT_9200_TCP_ADDR
+ELK_IP=$ELK_1_PORT_9200_TCP_ADDR
 if [[ -z "$ELK_IP" ]]; then
     ELK_IP=localhost
 fi

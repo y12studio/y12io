@@ -1,17 +1,22 @@
 FROM phusion/baseimage:0.9.13
 MAINTAINER Y12STUDIO <y12studio@gmail.com>
 
-ENV HOME /root
+RUN locale-gen --no-purge en_US.UTF-8
 ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
 RUN update-locale
 ENV DEBIAN_FRONTEND noninteractive
+
 # Use the phusion baseimage's insecure key
 RUN /usr/sbin/enable_insecure_key
 
-RUN apt-get -y update
-RUN apt-get -y upgrade
-RUN apt-get install -yq curl wget git golang python
+RUN apt-get -yq update
+RUN apt-get -yq upgrade
+RUN apt-get install -yq curl wget git python
 RUN apt-get install -yq openjdk-7-jre-headless
+
+ENV JAVA_HOME  /usr/lib/jvm/java-7-openjdk-amd64/
 
 #
 # collectd install
@@ -37,7 +42,7 @@ RUN chmod +x $CTD_RUN
 ADD logstash.sh $LS_RUN
 RUN chmod +x $LS_RUN
 
-ENV JAVA_HOME  /usr/lib/jvm/java-7-openjdk-amd64/
+ADD run.sh.tpl /opt/run.sh.tpl
 
 CMD ["/sbin/my_init"]
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
