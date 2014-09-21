@@ -1,8 +1,8 @@
 #!/bin/bash
-ELK_IP=$ELK_1_PORT_9200_TCP_ADDR
-if [[ -z "$ELK_IP" ]]; then
-    ELK_IP=localhost
+TARGET_IP=$REDIS_1_PORT_6379_TCP_ADDR
+if [ -z "$TARGET_IP" ]; then
+    TARGET_IP=localhost
 fi
-sed -i "s/ELK_IP_ADDR/$ELK_IP/g" $LS_CONF
+sed -i "s/TARGET_IP_ADDR/$TARGET_IP/" $LS_CONF
 /opt/logstash/bin/logstash agent -f $LS_CONF
 

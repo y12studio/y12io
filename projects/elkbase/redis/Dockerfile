@@ -28,9 +28,15 @@ VOLUME /data
 WORKDIR /data
 
 ENV REDIS_RUN /etc/service/redis/run
-RUN mkdir -p "$(dirname "$REDIS_RUN")" &&\
-    sed 's/SRV_USER/redis/;s/SRV_CMD/redis-server/;s/SRV_LOG/redis/' /opt/run.sh.tpl > $REDIS_RUN &&\
-    chmod +x $REDIS_RUN
+
+ADD redis.sh $REDIS_RUN
+RUN chmod +x $REDIS_RUN
+ADD redis.conf /etc/redis/redis.conf
+
+# enable collectd/logstash
+ADD logstash.conf $LS_CONF
+RUN /opt/srvtool.sh -y collectd
+RUN /opt/srvtool.sh -y logstash
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 

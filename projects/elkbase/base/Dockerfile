@@ -22,25 +22,29 @@ ENV JAVA_HOME  /usr/lib/jvm/java-7-openjdk-amd64/
 # collectd install
 #
 RUN apt-get install -y collectd
-ENV CTDCONF /opt/collectd/collectd.conf
-ENV CTD_RUN /etc/service/collectd/run
 #
 # logstash install
 #
 # Download version 1.4.2 of logstash
 RUN wget -qO- https://download.elasticsearch.org/logstash/logstash/logstash-1.4.2.tar.gz | tar xvz -C /tmp && \
     mv /tmp/logstash-* /opt/logstash
-ENV LS_CONF /opt/logstash.conf
-ENV LS_RUN /etc/service/logstash/run
 #
 # conf inject
 #
+ENV CTDCONF /opt/collectd/collectd.conf
+ENV CTD_RUN /opt/run/collectd/run
+ENV LS_CONF /opt/logstash.conf
+ENV LS_RUN /opt/run/logstash/run
 ADD collectd.conf $CTDCONF
 ADD collectd.sh $CTD_RUN
-RUN chmod +x $CTD_RUN
-
 ADD logstash.sh $LS_RUN
-RUN chmod +x $LS_RUN
+ADD srvtool.sh /opt/srvtool.sh
+RUN chmod +x /opt/srvtool.sh
+
+#  enable collectd, disable -n
+#  /opt/srvtool.sh -y collectd
+#  enable logstash, disable -n
+#  /opt/srvtool.sh -y logstash
 
 ADD run.sh.tpl /opt/run.sh.tpl
 
