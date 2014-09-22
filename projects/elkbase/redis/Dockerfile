@@ -24,6 +24,7 @@ RUN buildDeps='gcc libc6-dev make'; \
 	&& apt-get autoremove -y
 
 RUN mkdir /data && chown redis:redis /data
+RUN mkdir /opt/home && chown redis:redis /opt/home
 VOLUME /data
 WORKDIR /data
 
@@ -33,8 +34,8 @@ ADD redis.sh $REDIS_RUN
 RUN chmod +x $REDIS_RUN
 ADD redis.conf /etc/redis/redis.conf
 
-# enable collectd/logstash
 ADD logstash.conf $LS_CONF
+# enable collectd/logstash
 RUN /opt/srvtool.sh -y collectd
 RUN /opt/srvtool.sh -y logstash
 

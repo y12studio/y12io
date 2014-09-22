@@ -39,10 +39,10 @@ ADD nginx.conf /etc/nginx/nginx.conf
 #
 # logstash conf
 #
-ADD logstash.conf $LS_CONF
 ADD nginx.pattern /opt/logstash/patterns/nginx
-# RUN /opt/srvtool.sh -y collectd
 RUN /opt/srvtool.sh -y logstash
+RUN /opt/srvtool.sh -y collectd
+ADD logstash.conf $LS_CONF
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 CMD ["/sbin/my_init"]
