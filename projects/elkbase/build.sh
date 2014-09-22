@@ -27,9 +27,14 @@ function updateimg {
   $DOCKER tag "$OBIMG:$1" "$OBIMG:latest"
   echo [DOCKER] tag "$OBIMG:$1" "$OBIMG:latest"
   $DOCKER rm "$CID"
-} 
+}
 
-while getopts ":vhber" optname; do
+function cleandocker {
+  $DOCKER rm $($DOCKER ps -a -q)
+  $DOCKER rmi $($DOCKER images | grep "^<none>" | awk "{print $3}")
+}
+
+while getopts ":vhberax" optname; do
   case "$optname" in
     "v")
       echo "Version $VERSION"
@@ -52,9 +57,14 @@ while getopts ":vhber" optname; do
       ;;
     "a")
       echo "build all image"
-      #$DOCKER build -t obtest/base base
-      #$DOCKER build -t obtest/elk elk
-      #$DOCKER build -t obtest/ob ob
+      $DOCKER build -t "$BASEIMG" --rm=true --no-cache base
+      $DOCKER build -t "$ELKIMG" --rm=true --no-cache elk
+      $DOCKER build -t "$REDISIMG" --rm=true --no-cache redis
+      exit 0;
+      ;;
+    "x")
+      echo "clean all stopped containers and all untagged images"
+      cleandocker
       exit 0;
       ;;
     "h")
