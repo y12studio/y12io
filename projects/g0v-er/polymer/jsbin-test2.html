@@ -9,33 +9,32 @@
 <link rel="import" href="http://www.polymer-project.org/components/core-toolbar/core-toolbar.html">
 <link rel="import" href="http://www.polymer-project.org/components/core-menu/core-submenu.html">
 <link rel="import" href="http://www.polymer-project.org/components/core-ajax/core-ajax.html">
-<polymer-element name="hello-hp">
+<polymer-element name="list-hp">
     <template>
-      <core-ajax auto url="https://raw.githubusercontent.com/y12studio/y12io/master/projects/g0v-er/data/hp.geojson" handleAs="json" response="{{nodes}}"></core-ajax>
+      <core-ajax auto url="https://rawgit.com/y12studio/y12io/master/projects/g0v-er/data/hp.json" handleAs="json" response="{{root}}"></core-ajax>
        <template repeat="{{feature in root.features}}">
-         <p>ID: {{feature.id}}</p>
+         <p>ID: {{feature.id}}/{{feature.properties.title}}/{{feature.geometry.coordinates[0]}}/{{feature.geometry.coordinates[1]}}</p>
       </template>
     </template>
     <script>
-     Polymer('hello-hp', {
+     Polymer('list-hp', {
        attached: function() {
-         console.log('hello-hp attached');
+         console.log('list-hp attached');
        }
      })
   </script>
 </polymer-element>
-<polymer-element name="hello-er" attributes="what">
+<polymer-element name="list-er">
     <template>
       <core-ajax auto  url="http://api-beta.ly.g0v.tw:8086/db/twer/series?p=guest&q=select+mean(pending_ward),stddev(pending_ward)+from+%2FER.%2B%2F+where+time+%3E+now()+-+24h+order+asc&time_precision=s&u=guest" handleAs="json" response="{{nodes}}"></core-ajax>
        <template repeat="{{node in nodes}}">
          <p>ID: {{node.name}} / mean+-stddev={{node.points[0][1]}}+-{{node.points[0][2]}}</p>
       </template>
-      <div>Hello <strong>{{what}}</strong> :)</div>
     </template>
     <script>
-     Polymer('hello-er', {
+     Polymer('list-er', {
        attached: function() {
-         console.log('attached');
+         console.log('list-er attached');
        }
      })
   </script>
@@ -82,7 +81,8 @@
         </core-menu>
       </core-header-panel>
       <div id="div" tool><a href="http://er.mohw.g0v.tw/" target="_blank">全國重度級急救責任醫院急診24h統計</a></div>
-         <hello-hp></hello-hp>
+	  <list-er></list-er>
+         <list-hp></list-hp>
     </core-scaffold>
   </template>
 
