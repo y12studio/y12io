@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello World!</title>
+    <meta name="description" content="polymer paper login template" />
+    <script src="http://www.polymer-project.org/components/platform/platform.js"></script>
+    <link rel="import" href="http://www.polymer-project.org/components/polymer/polymer.html">
+    <link rel="import" href="http://www.polymer-project.org/components/paper-elements/paper-elements.html">
+    <link rel="import" href="http://www.polymer-project.org/components/core-elements/core-elements.html">
+    <link rel="import" href="hello-world.html">
+    <style>
+     body {
+    font-family: sans-serif;
+  }
+    paper-button {
+      margin: 1em;
+      width: 10em;
+    }
+    paper-button[raisedButton].colored {
+      background: #4285f4;
+      color: #fff;
+    }
+    paper-button[raisedButton].colored #ripple,
+    paper-button[raisedButton].colored::shadow #ripple {
+      color: #2a56c6;
+    }
+    paper-button[raisedButton].colored #focusBg,
+    paper-button[raisedButton].colored::shadow #focusBg {
+      background: #3367d6;
+    }
+    </style>
+  </head>
+  <body>
+    <h1><hello-world who="Haha"></hello-world></h1>
+    We are using node.js <script>document.write(process.version)</script>.
+    <div>
+<paper-dialog>
+  <div horizontal layout end-justified>
+    <core-icon-button icon="close" onclick="dialog.toggle()"></core-icon-button>
+  </div>
+  <div style="font-size: x-large;">Login</div><br>
+  <paper-input label="Username"></paper-input><br>
+  <paper-input label="Password" type="password"></paper-input><br>
+  <paper-button raisedButton onclick="dialog.toggle()">SUBMIT</paper-button>
+</paper-dialog>
+<paper-button label="LOGIN" raisedButton class="colored"  onclick="dialog.toggle()">
+</paper-button>
+</div>
+<script>
+var dialog = document.querySelector('paper-dialog');
+addEventListener('polymer-ready', function() {
+});
+</script>
+  </body>
+</html>
