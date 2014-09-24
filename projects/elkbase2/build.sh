@@ -7,11 +7,8 @@ set -e
 
 SUBJECT=logelk-build-image-id
 VERSION=0.1.0
-USAGE="Usage: build.sh -vhoebapk:c: args"
+USAGE="Usage: build.sh -vh args"
 DOCKER='sudo docker'
-BASEIMG=y12elk/base
-ELKIMG=y12elk/elk
-REDISIMG=y12elk/redis
 
 # --- Option processing --------------------------------------------
 if [ $# == 0 ] ; then
@@ -38,28 +35,6 @@ while getopts ":vhberax" optname; do
   case "$optname" in
     "v")
       echo "Version $VERSION"
-      exit 0;
-      ;;
-    "e")
-      echo "build the elk image"
-      $DOCKER build -t "$ELKIMG" --rm=true elk
-      exit 0;
-      ;;
-    "b")
-      echo "build the base image"
-      $DOCKER build -t "$BASEIMG" --rm=true base
-      exit 0;
-      ;;
-    "r")
-      echo "build the base image"
-      $DOCKER build -t "$REDISIMG" --rm=true redis
-      exit 0;
-      ;;
-    "a")
-      echo "build all image"
-      $DOCKER build -t "$BASEIMG" --rm=true --no-cache base
-      $DOCKER build -t "$ELKIMG" --rm=true --no-cache elk
-      $DOCKER build -t "$REDISIMG" --rm=true --no-cache redis
       exit 0;
       ;;
     "x")

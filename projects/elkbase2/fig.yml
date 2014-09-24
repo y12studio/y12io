@@ -1,0 +1,27 @@
+# 
+# 9200 : elasticsearch http api
+# 80 : nginx/kibana http 
+#
+elk:
+  build: elk
+  hostname: elk
+  ports:
+    - "9280:8080"
+    - "9200:9200"
+  expose:
+    - "9200"
+    - "8080"
+  links:
+    - redis
+#
+# redis
+# 6379 : redis port
+# 25826 : collectd udp port
+redis:
+  build: redis
+  hostname: redis
+  ports:
+    - "6379:6379"
+  expose:
+    - "6379"
+    - "25826"
