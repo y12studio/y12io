@@ -1,6 +1,15 @@
 ## How to run
 
+service list
+
+* kibana http://host:9280/
+* elasticsearch http://host:9200/
+* plugin head http://host:9200/_plugin/head/
+* plugin HQ http://host:9200/_plugin/HQ/
+* reids host:6379
+
 build-run-stop
+
 ```
 $ bash elkr.sh -b
 $ bash elkr.sh -r

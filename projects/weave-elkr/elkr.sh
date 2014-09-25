@@ -42,9 +42,11 @@ while getopts ":vhxbrs" optname; do
       exit 0;
       ;;
     "b")
-      sed -i "s/TARGET_IP_ADDR/$IP_REDIS/" elk/logstash.conf
-      sed -i "s/10.0.0.1/$IP_REDIS/" elk/collectd.conf
+      sed "s/IP_REDIS_TO_ALTER/$IP_REDIS/" elk/logstash.conf.tpl > elk/logstash.conf
+      sed "s/IP_COLLECTD_UDP_TO_ALTER/$IP_REDIS/" elk/collectd.conf.tpl > elk/collectd.conf
       $DOCKER build -t "$NAME_ELK" --rm=true elk
+      rm elk/logstash.conf
+      rm elk/collectd.conf
       $DOCKER build -t "$NAME_REDIS" --rm=true redis
       exit 0;
       ;;

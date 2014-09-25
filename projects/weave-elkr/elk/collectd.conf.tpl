@@ -3,6 +3,6 @@ LoadPlugin load
 LoadPlugin memory
 LoadPlugin network
 <Plugin network>
-    <Server "10.0.1.2" "25826">
+    <Server "IP_COLLECTD_UDP_TO_ALTER" "25826">
     </Server>
 </Plugin>

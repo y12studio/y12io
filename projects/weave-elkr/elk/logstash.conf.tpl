@@ -1,6 +1,6 @@
 input {
   redis { 
-          host => "10.0.1.2" 
+          host => "IP_REDIS_TO_ALTER" 
           data_type => "pattern_channel"
           key => "logstash*"
         }
