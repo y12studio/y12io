@@ -1,0 +1,22 @@
+{
+  "name": "ws-req",
+  "version": "0.0.1",
+  "homepage": "https://github.com/y12studio/y12io/tree/master/projects/polymer-spa",
+  "authors": [
+    "y12studio <y12studio@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.4.2",
+    "core-elements": "Polymer/core-elements",
+    "flatiron-director": "Polymer/flatiron-director",
+    "paper-elements": "Polymer/paper-elements"
+  }
+}
