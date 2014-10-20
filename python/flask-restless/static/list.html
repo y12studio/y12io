@@ -1,0 +1,20 @@
+
+<input type="text" ng-model="search" class="search-query" placeholder="Search">
+<table>
+  <thead>
+  <tr>
+    <th>Project</th>
+    <th>Description</th>
+    <th><a href="#/new"><span class="glyphicon glyphicon-plus-sign"></span></a></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="project in projects | filter:search | orderBy:'name'">
+    <td><a ng-href="{{project.site}}" target="_blank">{{project.name}}</a></td>
+    <td>{{project.description}}</td>
+    <td>
+      <a style="margin-left:2em;" ng-href="#/edit/{{project.id}}"><span class="glyphicon glyphicon-pencil"></span></a>
+    </td>
+  </tr>
+  </tbody>
+</table>
