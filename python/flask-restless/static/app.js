@@ -1,58 +1,25 @@
-angular.module('project', ['ngRoute','ngResource'])
+'use strict';
 
-.factory('Projects', function() {
-  return [{"id": "1","name": "Apple","description":"haha"}, {"id": "2","name": "Orange","description":"haha"}];
-})
+/* App Module */
 
-.config(function($routeProvider) {
-  $routeProvider
-    .when('/', {
-      controller: 'ListCtrl',
-      templateUrl: 'list.html'
-    })
-    .when('/edit/:projectId', {
-      controller: 'EditCtrl',
-      templateUrl: 'detail.html'
-    })
-    .when('/new', {
-      controller: 'CreateCtrl',
-      templateUrl: 'detail.html'
-    })
-    .otherwise({
-      redirectTo: '/'
-    });
-})
+var restApp = angular.module('restApp', [
+  'ngRoute',
+  'phonecatServices',
+  'phonecatControllers'
+]);
 
-.controller('ListCtrl', function($scope, Projects) {
-  $scope.projects = Projects;
-})
-
-.controller('CreateCtrl', function($scope, $location, $timeout, Projects) {
-  $scope.save = function() {
-    Projects.$add($scope.project).then(function(data) {
-      $location.path('/');
-    });
-  };
-})
-
-.controller('EditCtrl',
-  function($scope, $location, $routeParams, Projects) {
-    var projectId = $routeParams.projectId,
-      projectIndex;
-
-    $scope.projects = Projects;
-    projectIndex = $scope.projects.$indexFor(projectId);
-    $scope.project = $scope.projects[projectIndex];
-
-    $scope.destroy = function() {
-      $scope.projects.$remove($scope.project).then(function(data) {
-        $location.path('/');
+restApp.config(['$routeProvider',
+  function($routeProvider) {
+    $routeProvider.
+      when('/phones', {
+        templateUrl: 'list.html',
+        controller: 'PhoneListCtrl'
+      }).
+      when('/phones/:phoneId', {
+        templateUrl: 'detail.html',
+        controller: 'PhoneDetailCtrl'
+      }).
+      otherwise({
+        redirectTo: '/phones'
       });
-    };
-
-    $scope.save = function() {
-      $scope.projects.$save($scope.project).then(function(data) {
-        $location.path('/');
-      });
-    };
-  });
+  }]);
