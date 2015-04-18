@@ -1,3 +1,175 @@
+
+Sat Apr 18 03:16:50 UTC 2015
+============================
+[How To Run WordPress on a DigitalOcean 512MB VPS - RyanFrankel.com](http://ryanfrankel.com/run-wordpress-digital-ocean-512mb-vps/)
+
+Set up varnish caching
+
+[Using Varnish with WordPress - RyanFrankel.com](http://ryanfrankel.com/using-varnish-with-wordpress/)
+
+[Website speed test - pingdom ](http://tools.pingdom.com/) blog.y12.tw
+
+before varnish : Requests= 14, Load time = 2.34s
+
+after varnish :
+
+Requests= 14, Load time = 1.8s
+
+Requests= 14, Load time = 724ms
+
+[Scaling Wordpress with Varnish and Docker - Ben Hall's blog](http://blog.benhall.me.uk/2015/01/scaling-wordpress-varnish-docker/)
+
+```
+dhc-user@blog-vol:~/wp$ docker-compose stop
+Stopping wp_gcmt_1...
+Stopping wp_wordpress_1...
+Stopping wp_db_1...
+dhc-user@blog-vol:~/wp$ docker-compose rm
+Going to remove wp_gcmt_1, wp_wordpress_1, wp_db_1
+Are you sure? [yN] y
+Removing wp_db_1...
+Removing wp_wordpress_1...
+Removing wp_gcmt_1...
+
+dhc-user@blog-vol:~/wp$ nano docker-compose.yml
+
+wordpress:
+    image: wordpress
+    links:
+        - db:mysql
+    volumes:
+        - databox/html/:/var/www/html/
+    environment:
+        - WORDPRESS_DB_PASSWORD=1234
+
+db:
+    image: mariadb
+    volumes:
+        - databox/mysql/:/var/lib/mysql/
+    environment:
+        - MYSQL_ROOT_PASSWORD=1234
+
+varnish:
+    image: benhall/docker-varnish
+    links:
+        - wordpress
+    environment:
+        - VIRTUAL_HOST=blog.y12.tw
+        - VARNISH_BACKEND_PORT=80
+        - VARNISH_BACKEND_HOST=wordpress
+    ports:
+        - 80:80
+
+
+dhc-user@blog-vol:~/wp$ docker-compose up -d
+
+
+```
+
+
+Sat Apr 18 02:38:48 UTC 2015
+============================
+
+[ubermuda/docker-wordpress](https://github.com/ubermuda/docker-wordpress)
+
+```
+
+dhc-user@blog-vol:~/wp$ cat docker-compose.yml
+wordpress:
+    image: wordpress
+    links:
+        - db:mysql
+    ports:
+        - 80:80
+    volumes:
+        - databox/html/:/var/www/html/
+    environment:
+        - WORDPRESS_DB_PASSWORD=1234
+
+db:
+    image: mariadb
+    volumes:
+        - databox/mysql/:/var/lib/mysql/
+    environment:
+        - MYSQL_ROOT_PASSWORD=1234
+
+gcmt:
+    image: y12docker/apbase:1504
+    links:
+        - db
+        - wordpress
+    command: python -m SimpleHTTPServer
+
+
+dhc-user@blog-vol:~/wp$ mkdir databox/html
+dhc-user@blog-vol:~/wp$ mkdir databox/mysql
+dhc-user@blog-vol:~/wp$ docker-compose rm
+dhc-user@blog-vol:~/wp$ docker-compose up -d
+dhc-user@blog-vol:~/wp$ docker-compose ps
+     Name                   Command               State         Ports
+----------------------------------------------------------------------------
+wp_db_1          /docker-entrypoint.sh mysqld     Up      3306/tcp
+wp_gcmt_1        python -m SimpleHTTPServer       Up
+wp_wordpress_1   /entrypoint.sh apache2-for ...   Up      0.0.0.0:80->80/tcp
+
+dhc-user@blog-vol:~/wp$ ls databox/html
+index.php        wp-blog-header.php    wp-cron.php        wp-mail.php
+license.txt      wp-comments-post.php  wp-includes        wp-settings.php
+readme.html      wp-config.php         wp-links-opml.php  wp-signup.php
+wp-activate.php  wp-config-sample.php  wp-load.php        wp-trackback.php
+wp-admin         wp-content            wp-login.php       xmlrpc.php
+dhc-user@blog-vol:~/wp$ ls databox/mysql
+aria_log.00000001  ib_logfile0        mysql
+aria_log_control   ib_logfile1        performance_schema
+ibdata1            multi-master.info  wordpress
+
+```
+
+
+Fri Apr 17 08:47:41 UTC 2015
+============================
+
+create a instance with volume
+```
+dhc-user@blog-vol:~$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda1       9.9G  2.5G  7.0G  26% /
+none            4.0K     0  4.0K   0% /sys/fs/cgroup
+udev            484M   12K  484M   1% /dev
+tmpfs           100M  356K  100M   1% /run
+none            5.0M     0  5.0M   0% /run/lock
+none            498M     0  498M   0% /run/shm
+none            100M     0  100M   0% /run/user
+/dev/sr0        416K  416K     0 100% /mnt/config-2
+
+dhc-user@blog-vol:~/wp$ docker-compose up -d
+Creating wp_db_1...
+Creating wp_wordpress_1...
+Creating wp_gcmt_1...
+dhc-user@blog-vol:~/wp$ docker-compose ps
+     Name                   Command               State         Ports
+----------------------------------------------------------------------------
+wp_db_1          /docker-entrypoint.sh mysqld     Up      3306/tcp
+wp_gcmt_1        python -m SimpleHTTPServer       Up
+wp_wordpress_1   /entrypoint.sh apache2-for ...   Up      0.0.0.0:80->80/tcp
+
+dhc-user@blog-vol:~/wp$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda1       9.9G  3.6G  5.9G  38% /
+none            4.0K     0  4.0K   0% /sys/fs/cgroup
+udev            484M   12K  484M   1% /dev
+tmpfs           100M  380K  100M   1% /run
+none            5.0M     0  5.0M   0% /run/lock
+none            498M  228K  497M   1% /run/shm
+none            100M     0  100M   0% /run/user
+/dev/sr0        416K  416K     0 100% /mnt/config-2
+
+
+```
+
+
+
+
 Fri Apr 17 03:40:26 UTC 2015
 ============================
 [DreamCompute - DreamHost](http://wiki.dreamhost.com/DreamCompute)
@@ -167,11 +339,11 @@ wordpress:
     ports:
         - 8080:80
     environment:
-        - WORDPRESS_DB_PASSWORD=dPY1WddGr
+        - WORDPRESS_DB_PASSWORD=1234
 db:
     image: mariadb
     environment:
-        - MYSQL_ROOT_PASSWORD=dPY1WddGr
+        - MYSQL_ROOT_PASSWORD=1234
 gcmt:
     image: y12docker/apbase:1504
     links:

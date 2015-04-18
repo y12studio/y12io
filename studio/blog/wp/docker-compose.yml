@@ -2,14 +2,29 @@ wordpress:
     image: wordpress
     links:
         - db:mysql
-    ports:
-        - 8080:80
+    volumes:
+        - databox/html/:/var/www/html/
     environment:
-        - WORDPRESS_DB_PASSWORD=dPY1WddGr
+        - WORDPRESS_DB_PASSWORD=1234
+
 db:
     image: mariadb
+    volumes:
+        - databox/mysql/:/var/lib/mysql/
     environment:
-        - MYSQL_ROOT_PASSWORD=dPY1WddGr
+        - MYSQL_ROOT_PASSWORD=1234
+
+varnish:
+    image: benhall/docker-varnish
+    links:
+        - wordpress
+    environment:
+        - VIRTUAL_HOST=blog.y12.tw
+        - VARNISH_BACKEND_PORT=80
+        - VARNISH_BACKEND_HOST=wordpress
+    ports:
+        - 80:80
+
 gcmt:
     image: y12docker/apbase:1504
     links:
