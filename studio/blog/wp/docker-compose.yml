@@ -1,5 +1,5 @@
 wordpress:
-    image: wordpress
+    build: wpblue
     links:
         - db:mysql
     volumes:
@@ -8,7 +8,7 @@ wordpress:
         - WORDPRESS_DB_PASSWORD=1234
 
 db:
-    image: mariadb
+    image: mariadb:10.0.17
     volumes:
         - databox/mysql/:/var/lib/mysql/
     environment:

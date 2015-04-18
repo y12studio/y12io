@@ -1,3 +1,60 @@
+Sat Apr 18 06:16:06 UTC 2015
+===========================
+
+Adjust Apache
+
+```
+
+dhc-user@blog-vol:~/wp$ docker exec -i -t wp_wordpress_1 bash
+root@88e04c9b3316:/var/www/html# ps aux | grep apache
+root         1  0.0  0.9 173124  9832 ?        Ss   05:29   0:00 apache2 -DFOREGROUND
+www-data    37  0.2  1.2 252468 13204 ?        S    05:29   0:08 apache2 -DFOREGROUND
+www-data    38  0.1  3.3 272480 33980 ?        S    05:29   0:05 apache2 -DFOREGROUND
+www-data    39  0.1  3.2 271752 33400 ?        S    05:29   0:04 apache2 -DFOREGROUND
+www-data    40  0.2  3.0 270812 31404 ?        S    05:29   0:08 apache2 -DFOREGROUND
+www-data    41  0.2  3.2 271724 33168 ?        S    05:29   0:08 apache2 -DFOREGROUND
+www-data    43  0.1  3.2 271964 33372 ?        S    05:29   0:05 apache2 -DFOREGROUND
+www-data    44  0.2  1.2 252464 13228 ?        S    05:29   0:08 apache2 -DFOREGROUND
+www-data    51  0.1  1.4 253488 14400 ?        S    05:37   0:04 apache2 -DFOREGROUND
+www-data    52  0.1  3.3 272764 34176 ?        S    05:37   0:05 apache2 -DFOREGROUND
+www-data    53  0.1  3.3 272704 34272 ?        S    05:37   0:04 apache2 -DFOREGROUND
+
+
+dhc-user@blog-vol:~/wp$ docker run -i -t --entrypoint=/bin/bash wordpress
+
+root@cc9f134ffb6c:/var/www/html# grep -rnw /etc/apache2 -e "mpm_prefork_module"
+/etc/apache2/mods-available/mpm_prefork.load:2:LoadModule mpm_prefork_module /usr/lib/apache2/modules/mod_mpm_prefork.so
+/etc/apache2/mods-available/mpm_prefork.conf:8:<IfModule mpm_prefork_module>
+
+root@cc9f134ffb6c:/var/www/html# grep -rnw /etc/apache2 -e "mpm_worker_module"
+/etc/apache2/mods-available/mpm_worker.conf:12:<IfModule mpm_worker_module>
+/etc/apache2/mods-available/mpm_worker.load:2:LoadModule mpm_worker_module /usr/lib/apache2/modules/mod_mpm_worker.so
+
+root@cc9f134ffb6c:/var/www/html# grep -rnw /etc/apache2 -e "mpm_event_module"
+/etc/apache2/mods-available/mpm_event.conf:8:<IfModule mpm_event_module>
+/etc/apache2/mods-available/mpm_event.load:2:LoadModule mpm_event_module /usr/lib/apache2/modules/mod_mpm_event.so
+
+# nano wpblue/Dockerfile and conf
+
+dhc-user@blog-vol:~/wp$ docker-compose up -d
+
+dhc-user@blog-vol:~/wp$ docker exec -i -t wp_wordpress_1 bash
+root@d582eb294771:/var/www/html# ps aux | grep apache
+root         1  0.1  0.8 173124  8876 ?        Ss   06:44   0:00 apache2 -DFOREGROUND
+www-data    38  0.4  2.7 193468 28044 ?        S    06:44   0:00 apache2 -DFOREGROUND
+www-data    39  1.2  1.1 177056 11892 ?        S    06:44   0:01 apache2 -DFOREGROUND
+
+dhc-user@blog-vol:~/wp$ docker images
+REPOSITORY               TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+wp_wordpress             latest              9752a9dbf914        51 minutes ago      451.5 MB
+benhall/docker-varnish   latest              282eba9c2ba0        4 days ago          332 MB
+y12docker/apbase         1504                09e73697260a        12 days ago         54.01 MB
+wordpress                4.1.1               f90659c8fdb9        2 weeks ago         451.5 MB
+wordpress                latest              f90659c8fdb9        2 weeks ago         451.5 MB
+mariadb                  10.0.17             7f70676c217c        2 weeks ago         257.4 MB
+mariadb                  latest              7f70676c217c        2 weeks ago         257.4 MB
+
+```
 
 Sat Apr 18 03:16:50 UTC 2015
 ============================
