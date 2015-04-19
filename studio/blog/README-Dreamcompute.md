@@ -1,3 +1,54 @@
+Sun Apr 19 16:39:09 CST 2015
+============================
+
+[Using mod_spdy with PHP - Protocols — Google Developers](https://developers.google.com/speed/spdy/mod_spdy/php)
+
+php5_module found in apache2ctl -M, wordpress:4.1.1 apache with mod_php
+
+```
+dhc-user@blog-red:~/wp$ docker-compose ps
+     Name                   Command               State         Ports
+----------------------------------------------------------------------------
+wp_db_1          /docker-entrypoint.sh mysqld     Up      3306/tcp
+wp_gcmt_1        python -m SimpleHTTPServer       Up
+wp_varnish_1     /start.sh                        Up      0.0.0.0:80->80/tcp
+wp_wordpress_1   /entrypoint.sh apache2-for ...   Up      80/tcp
+
+dhc-user@blog-red:~/wp$ docker exec -i -t wp_wordpress_1 bash
+root@5d9c93c3c11e:/var/www/html# apache2ctl -M
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.17.0.4. Set the 'ServerName' directive globally to suppress this message
+Loaded Modules:
+ core_module (static)
+ so_module (static)
+ watchdog_module (static)
+ http_module (static)
+ log_config_module (static)
+ logio_module (static)
+ version_module (static)
+ unixd_module (static)
+ access_compat_module (shared)
+ alias_module (shared)
+ auth_basic_module (shared)
+ authn_core_module (shared)
+ authn_file_module (shared)
+ authz_core_module (shared)
+ authz_host_module (shared)
+ authz_user_module (shared)
+ autoindex_module (shared)
+ deflate_module (shared)
+ dir_module (shared)
+ env_module (shared)
+ filter_module (shared)
+ mime_module (shared)
+ mpm_prefork_module (shared)
+ negotiation_module (shared)
+ php5_module (shared)
+ rewrite_module (shared)
+ setenvif_module (shared)
+ status_module (shared)
+
+```
+
 Sat Apr 18 06:16:06 UTC 2015
 ===========================
 

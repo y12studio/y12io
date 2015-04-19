@@ -1,5 +1,5 @@
 wordpress:
-    build: wpblue
+    image: wordpress:4.1.1-fpm
     links:
         - db:mysql
     volumes:
@@ -14,20 +14,20 @@ db:
     environment:
         - MYSQL_ROOT_PASSWORD=1234
 
+nginx:
+    build: nginx
+    links:
+        - wordpress:fpm
+    volumes_from:
+        - wordpress
+
 varnish:
     image: benhall/docker-varnish
     links:
-        - wordpress
+        - nginx
     environment:
         - VIRTUAL_HOST=blog.y12.tw
         - VARNISH_BACKEND_PORT=80
-        - VARNISH_BACKEND_HOST=wordpress
+        - VARNISH_BACKEND_HOST=nginx
     ports:
         - 8080:80
-
-gcmt:
-    image: y12docker/apbase:1504
-    links:
-        - db
-        - wordpress
-    command: python -m SimpleHTTPServer
