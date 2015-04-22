@@ -1,7 +1,67 @@
+Wed Apr 22 04:51:35 EDT 2015
+=============================
+
+mkswap and adduser
+------------------
+
+```
+# fallocate -l 256M /swapfile && mkswap /swapfile && chmod 600 /swapfile && swapon /swapfile
+# nano /etc/fstab
+# cat /etc/fstab | grep swapfile
+/swapfile       none    swap    sw      0       0
+# nano /etc/sysctl.conf
+# cat /etc/sysctl.conf | grep vm
+vm.swappiness=10
+vm.vfs_cache_pressure = 50
+# adduser wpuser
+# adduser wpuser sudo
+# adduser wpuser www-data
+# reboot
+# swapon -s
+```
+install docker/docker-compose
+------------------------------
+```
+root@do150422:~# su - wpuser
+wpuser@do150422:~$ pwd
+/home/wpuser
+$ wget -qO- https://get.docker.com/ | sh
+$ sudo usermod -aG docker wpuser
+$ curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
+$ sudo python get-pip.py
+$ sudo pip install -U docker-compose
+$ exit
+```
+
+run the container
+----------------
+
+```
+# su - wpuser
+$ git clone https://github.com/y12studio/y12io.git
+$ cd y12io/studio/blog/wp
+$ nano docker-compose.yml
+$ mkdir -p databox/html databox/mysql
+$ docker-compose pull
+$ docker-compose build
+$ docker-compose up
+$ docker-compose ps
+      Name             Command             State              Ports
+-------------------------------------------------------------------------
+wp_db_1            /docker-           Up                 3306/tcp
+                   entrypoint.sh
+                   mysqld
+wp_varnish_1       /start.sh          Up                 0.0.0.0:8080->80
+                                                         /tcp
+wp_wordpress_1     /entrypoint.sh     Up                 80/tcp
+                   apache2-for ...
+$ curl http://host_ip:8080/
+
+```
+
+
 Thu Apr 16 22:08:58 EDT 2015
 ============================
-
-
 
 [How To Run WordPress on a DigitalOcean 512MB VPS - RyanFrankel.com](http://ryanfrankel.com/run-wordpress-digital-ocean-512mb-vps/)
 
@@ -11,8 +71,6 @@ Thu Apr 16 22:08:58 EDT 2015
 # adduser your-new-user-name www-data
 # su - your-new-user-name
 ```
-
-
 
 [How To Add Swap on Ubuntu 12.04 | DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-add-swap-on-ubuntu-12-04)
 ```

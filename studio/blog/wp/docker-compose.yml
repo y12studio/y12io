@@ -24,10 +24,3 @@ varnish:
         - VARNISH_BACKEND_HOST=wordpress
     ports:
         - 8080:80
-
-gcmt:
-    image: y12docker/apbase:1504
-    links:
-        - db
-        - wordpress
-    command: python -m SimpleHTTPServer

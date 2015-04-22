@@ -1,5 +1,5 @@
 wordpress:
-    image: wordpress:4.1.1-fpm
+    image: wordpress:4.1.2-fpm
     links:
         - db:mysql
     volumes:
